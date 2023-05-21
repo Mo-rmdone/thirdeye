@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../colors.dart';
+import '../styles.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.teal,
@@ -47,7 +48,8 @@ ThemeData darkTheme = ThemeData(
 );
 
 ThemeData lightTheme = ThemeData(
-  primarySwatch:Colors.teal,
+
+  primarySwatch:Colors.purple,
   scaffoldBackgroundColor: lightBackgroundColor,
   floatingActionButtonTheme:  FloatingActionButtonThemeData(
     backgroundColor: mainColor,
@@ -70,6 +72,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   textTheme: const TextTheme(
+
     bodyLarge: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.w600,
@@ -88,3 +91,12 @@ ThemeData lightTheme = ThemeData(
 
   ),
 );
+
+InputDecorationTheme inputDecorationTheme =  InputDecorationTheme(
+  fillColor: const Color(0xFFFBFBFB),
+  filled: true,
+  border: defaultOutlineInputBorder,
+  enabledBorder: defaultOutlineInputBorder,
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(14),
+    borderSide: const BorderSide(color: Color(0xFFF2994A)),),);

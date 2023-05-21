@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-final pathToSaveAudio = 'audio_example.aac';
+final pathToSaveAudio = 'D:/videos/audio_example.aac';
+
 
 class SoundRecorder
 {
@@ -10,6 +11,8 @@ class SoundRecorder
   static FlutterSoundRecorder? _audioRecorder;
   bool isRecordingInitialized = false;
   bool get isRecording => _audioRecorder!.isRecording;
+
+
 
   Future init () async
   {
@@ -22,6 +25,7 @@ class SoundRecorder
 
     await _audioRecorder!.openAudioSession();
     isRecordingInitialized = true;
+
   }
 
   void dispose()
@@ -36,6 +40,7 @@ class SoundRecorder
   {
     if(!isRecordingInitialized) return;
     await  _audioRecorder!.startRecorder(toFile:pathToSaveAudio);
+
   }
 
   Future _stop () async

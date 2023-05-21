@@ -1,9 +1,6 @@
-
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thirdeye/shared/bloc_observer.dart';
-import 'package:thirdeye/shared/components/constants.dart';
 import 'package:thirdeye/shared/network/local/cashe_helper.dart';
 import 'package:thirdeye/shared/network/remote/dio_helper.dart';
 import 'package:thirdeye/shared/styles/themes/app_themes.dart';
@@ -12,6 +9,8 @@ import 'cubit/ch_cubit/ch_cubit.dart';
 import 'cubit/ch_cubit/states.dart';
 import 'login/ch_login/login_screen.dart';
 import 'login/ch_onBorading/onborading_screen.dart';
+import 'login/login_cubit/log_in_cubit.dart';
+import 'shared/components/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +23,9 @@ void main() async {
   Widget? widget;
 
   if(onBoarding==true)
+
   {
-    if(true)
+    if(token == true)
     {
       widget =  ChildrenLayout();
     }
@@ -55,7 +55,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers:  [
-
         BlocProvider(
             create: (BuildContext context) =>
             ChildrenAppCubit ()
@@ -63,6 +62,7 @@ class MyApp extends StatelessWidget {
               saved: isDark,
             ),
         ),
+        BlocProvider(create: (BuildContext context) => LogInCubit()),
 
       ],
       child: BlocConsumer <ChildrenAppCubit , ChildrenAppStates>(
@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
+
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: ChildrenAppCubit.get(context).isDark? ThemeMode.dark : ThemeMode.light,

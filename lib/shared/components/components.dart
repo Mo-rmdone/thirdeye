@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../styles/colors.dart';
-
-
+import '../styles/styles.dart';
 
 Widget defaultButton ({
   double width = double.infinity,
@@ -13,26 +12,22 @@ Widget defaultButton ({
   String text = "text",
   bool isUpper = true,
   required VoidCallback function,
+  double? fontSize,
 }
 )=> Container(
-    width: width,
+  width: width,
   height: 40,
   decoration: BoxDecoration(
     color: background,
     borderRadius: BorderRadius.circular(radius)
   ),
-
     child: MaterialButton
       (
-            onPressed: function,
-
+      onPressed: function,
       child:  Text
       (
         isUpper ? text.toUpperCase() : text ,
-          style:
-           TextStyle(
-          color: mainColor
-          ),
+          style: TextStyle(color: mainColor),
       ),
 
         ),
@@ -43,18 +38,23 @@ Widget defaultTextButton(
   required VoidCallback function,
   String text = "text",
 
-}) =>TextButton(onPressed: function, child: Text(text.toUpperCase()),);
+}) =>TextButton(onPressed: function,
+  child: Text(text.toUpperCase()),
+);
 
 Widget defaultForm({
-  required TextEditingController controller,
-  required TextInputType KBtype,
+  TextEditingController? controller,
+  TextInputType? keyboardType,
+  TextInputAction? textInputAction,
   Function (String)? onSubmit,
   Function (String)? onchange,
-  required Function validate,
-  required String label,
-  required IconData prefix,
   VoidCallback? onTap,
-  VoidCallback ? suffPressed,
+  Function? validator,
+  String? label,
+  IconData? prefix,
+  String? hint,
+
+  VoidCallback ? suffixPressed,
   IconData? suffix,
   bool isobscureText = false,
 
@@ -63,23 +63,32 @@ Widget defaultForm({
 =>TextFormField(
   controller: controller,
   obscureText: isobscureText,
-  keyboardType:KBtype ,
+  keyboardType:keyboardType ,
+  textInputAction: textInputAction,
   onFieldSubmitted: onSubmit,
   onChanged: onchange,
   onTap: onTap ,
   decoration:  InputDecoration(
   prefixIcon: Icon(prefix),
+  fillColor: const Color(0xFFFBFBFB),
   suffixIcon: IconButton(
-        onPressed: suffPressed,
+        onPressed: suffixPressed,
         icon:Icon(suffix)) ,
   labelText: label,
+  hintText: hint,
   filled: true,
-  fillColor: Colors.white,
+    border: defaultOutlineInputBorder,
+    enabledBorder: defaultOutlineInputBorder,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(30),
+      borderSide: const BorderSide(color: Color(0xFFF2994A)),),
+    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(100.0), borderSide: BorderSide(color: Colors.red, width: 2.0)),
+    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(100.0), borderSide: BorderSide(color: Colors.red, width: 2.0)),
 
 
   ),
   validator: (value){
-    return validate!(value);
+    return validator!(value);
 },
 );
 
@@ -88,6 +97,7 @@ Widget defaultIconButton ({required VoidCallback function, required IconData ico
     icon: Icon(icon));
 
 Widget defaultAvatarButton() => CircleAvatar();
+
 Widget myDivider() => Padding(
   padding: const EdgeInsets.all(20.0),
   child:   Container(
@@ -97,13 +107,11 @@ Widget myDivider() => Padding(
   ),
 );
 
-
 void navigateTo (context, Widget)=> Navigator.push(context,
   MaterialPageRoute(
     builder: (context) => Widget,
   ),
 );
-
 void navigatePushAndRemoveUntil (context, Widget)=> Navigator.pushAndRemoveUntil(context,
   MaterialPageRoute(
     builder: (context) => Widget,),
@@ -112,7 +120,6 @@ void navigatePushAndRemoveUntil (context, Widget)=> Navigator.pushAndRemoveUntil
       return false;
     }
 );
-
 void showToast ({required String message, required ToastStatus state })=>Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
@@ -122,8 +129,6 @@ void showToast ({required String message, required ToastStatus state })=>Flutter
     textColor: Colors.black,
     fontSize: 16.0
 );
-
-
 enum ToastStatus {SUCCESS, ERORR, WARNING}
 Color toastColor (ToastStatus state)
 {
@@ -148,13 +153,9 @@ Widget buildArticleItem(article,context) => InkWell(
   child:   Padding(
 
     padding: const EdgeInsets.all(20.0),
-
     child: Row(
-
         children:
-
         [
-
           Container(
 
             width: 120,
@@ -176,43 +177,25 @@ Widget buildArticleItem(article,context) => InkWell(
             ),
 
           ),
-
           const SizedBox(
-
             width: 20,
-
           ),
-
           Expanded(
-
             child: Container(
-
               height: 120,
-
               child: Column(
-
                 mainAxisAlignment: MainAxisAlignment.start,
-
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children:   [
-
                   Expanded(
-
                     child: Text(
-
                       "${article['title']}",
-
                       style: Theme.of(context).textTheme.bodyLarge,
-
                       maxLines: 3,
-
                       overflow: TextOverflow.ellipsis,
-
                     ),
 
                   ),
-
                   Text(
 
                     "${article['publishedAt']}",
@@ -227,17 +210,8 @@ Widget buildArticleItem(article,context) => InkWell(
 
             ),
 
-          )
-
-
-
-
-
+          ),
         ]
-
-
-
-
 
     ),
 

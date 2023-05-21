@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -41,7 +40,8 @@ class SoundRecorder
   Future _stop () async
   {
     if(!isRecordingInitialized) return;
-    await _audioRecorder!.stopRecorder();
+    final path = await _audioRecorder!.stopRecorder();
+    print("audioFile $path");
   }
 
   Future<void> toggle () async

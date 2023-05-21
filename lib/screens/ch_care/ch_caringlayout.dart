@@ -1,54 +1,58 @@
 
 import 'package:flutter/material.dart';
+import 'package:thirdeye/shared/styles/colors.dart';
 
+import '../../ch_widgets/items.dart';
 import 'ch_crying.dart';
+import 'ch_sleep_summary.dart';
 import 'ch_sleep.dart';
-import 'ch_sleepingdata.dart';
 
 
 class ChildrenCareScreen extends StatelessWidget {
   const ChildrenCareScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return  DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Caring"),
-          bottom:  const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.local_fire_department, color: Colors.blueGrey,) ,
-                child: Text(
-                    'cry',
-                  style: TextStyle(color: Colors.black),
+    return  Scaffold(
+      body:  SafeArea(
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                padding: const EdgeInsets.all(10),
+                child:  TabBar(
+                  physics: const ClampingScrollPhysics(),
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.black,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[200],
+                      border: Border.all(color: Colors.black, width:1)
+
+                  ),
+                  tabs:   [
+                    tabWidget('Cry'),
+                    tabWidget('Sleep'),
+                    tabWidget('Summary'),
+
+                  ],
+
                 ),
               ),
-              Tab(
-                icon: Icon(Icons.bedtime_rounded,color: Colors.blueGrey) ,
-                child: Text('Sleep',
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    CryScreen(),
+                    SleepScreen(),
+                    SummaryScreen(),
+                  ],
 
-                  style: TextStyle(color: Colors.black),
-                ),
-
-              ),
-              Tab(
-                icon: Icon(Icons.table_chart, color: Colors.blueGrey) ,
-                child: Text('Summary',
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],
-
           ),
-        ),
-        body:  TabBarView(
-          children: [
-            CryScreen(),
-            SleepScreen(),
-            SummaryScreen(),
-          ],
-
         ),
       ),
     );

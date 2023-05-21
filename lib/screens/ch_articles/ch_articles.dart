@@ -4,81 +4,80 @@ import 'package:thirdeye/screens/ch_articles/hot.dart';
 import 'package:thirdeye/screens/ch_articles/most_read.dart';
 import 'package:thirdeye/screens/ch_articles/suggestion.dart';
 import 'package:thirdeye/screens/ch_articles/top.dart';
+import '../../ch_widgets/items.dart';
 
-import '../../shared/components/components.dart';
 
-class ChildrenArticlesScreen extends StatelessWidget {
-  const ChildrenArticlesScreen({Key? key}) : super(key: key);
+class ChildrenArticlesScreen extends StatelessWidget{
+
 
   @override
   Widget build(BuildContext context) {
     var searchController = TextEditingController();
-    return  DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          leadingWidth: double.infinity,
-          leading: Container(
-            decoration: const BoxDecoration(
-
+    return  Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          decoration: InputDecoration(
+            hintText: 'Search...',
+            border: InputBorder.none,
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // add your code here
+              },
             ),
-            child: defaultForm(
-                controller: searchController,
-                KBtype: TextInputType.text,
-                validate: (String val) {
-                  if (val?.isEmpty == true) {
-                    return 'Search must not be  empty';
-                  }
-                  return null;
-                },
-                label: 'Search',
-                prefix: Icons.search
-            ),
-          ),
-          bottom:  const TabBar(
-            tabs: [
-              Tab(
-                child: Text(
-                  'Feed',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              Tab(
-                child: Text('Hot',
-
-                  style: TextStyle(color: Colors.black),
-                ),
-
-              ),
-              Tab(
-                child: Text('Top',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              Tab(
-                child: Text('Most Read',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              Tab(
-                child: Text('For You',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ],
-
           ),
         ),
-        body:  const TabBarView(
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.message),
+            onPressed: () {
+              // add your code here
+            },
+          ),
+        ],
+      ),
+      body:  DefaultTabController(
+        length: 5,
+        child: Column(
           children: [
-            FeedArticles(),
-            HotArticles(),
-            TopArticles(),
-            MostReadArticles(),
-            SuggestionArticles(),
-          ]
-        ,
+            Container(
+              height: 60,
+              padding: const EdgeInsets.all(10),
+              color: Colors.white,
+              child:  TabBar(
+                isScrollable: true,
+                physics: const ClampingScrollPhysics(),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.black,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.grey[200],
+                    border: Border.all(color: Colors.black, width:1)
 
+                ),
+                tabs:   [
+                  tabWidget('Following'),
+                  tabWidget('Following'),
+                  tabWidget('Following'),
+                  tabWidget('Following'),
+                  tabWidget('Following'),
+
+                ],
+
+              ),
+            ),
+            const Expanded(
+              child: TabBarView(
+                children: [
+                  FeedArticles(),
+                  HotArticles(),
+                  TopArticles(),
+                  MostReadArticles(),
+                  SuggestionArticles(),],
+              ),
+            ),
+          ],
         ),
       ),
     );

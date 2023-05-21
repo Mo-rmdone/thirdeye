@@ -3,8 +3,7 @@ import '../../../shared/components/components.dart';
 import '../../../shared/network/local/cashe_helper.dart';
 import '../../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../ch_login/login_screen.dart';
+import '../get_started.dart';
 
 
 class BoardingModel
@@ -35,7 +34,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
         {
           if(value!)
             {
-              navigatePushAndRemoveUntil(context,LogInScreen());
+              navigatePushAndRemoveUntil(context,GetStartedScreen());
             }
         }
 
