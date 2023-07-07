@@ -17,5 +17,6 @@ class updateTime extends ChildrenAppStates {}
 class updateDate extends ChildrenAppStates {}
 
 class updateImage extends ChildrenAppStates {}
+class isMenuClosed extends ChildrenAppStates {}
 
 

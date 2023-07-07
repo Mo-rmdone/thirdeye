@@ -5,29 +5,36 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:thirdeye/cubit/ch_cubit/states.dart';
-import '../../screens/ch_articles/ch_articles.dart';
-import '../../screens/ch_care/ch_caringlayout.dart';
-import '../../screens/ch_home/myhome.dart';
-import '../../screens/ch_profile/userprofile.dart';
-import '../../screens/ch_tracking/tracking.dart';
-import '../../screens/testscreen.dart';
 
-import '../../shared/network/local/cashe_helper.dart';
+import '../../presentation/mysound/best_ui.dart';
+import '../../presentation/screens/ch_articles/ch_articles.dart';
+import '../../presentation/screens/ch_care/ch_caringlayout.dart';
+import '../../presentation/screens/ch_doctor/cp_doctor.dart';
+import '../../presentation/screens/ch_home/myhome.dart';
+import '../../presentation/screens/ch_profile/userprofile.dart';
+import '../../presentation/screens/ch_tracking/tracking.dart';
+import '../../presentation/screens/temp.dart';
+import '../../presentation/shared/network/local/cashe_helper.dart';
+import '../../presentation/used_items/doctor_profile_window.dart';
+
 
 class ChildrenAppCubit extends Cubit<ChildrenAppStates> {
   ChildrenAppCubit() : super(InitialState());
-
   static ChildrenAppCubit get(context) => BlocProvider.of(context);
   int currentIndex = 2;
   int barIndex = 1;
   List<Widget> homeScreens =
   [
-    ChildrenArticlesScreen(),
+    SoundUi(),
+    //ChildrenArticlesScreen(),
     const ChildrenCareScreen(),
-    const HomeScreen(),
+    HomeScreen(),
     const ChildrenTrackingScreen(),
     // testScreen(),
+    //DoctorProfileWindow(),
+    //SubscriptionsScreen(),
     const UserProfileScreen(),
+    //DoctorProfile(),
 
   ];
   void changeBottom(int index) {
@@ -90,6 +97,7 @@ class ChildrenAppCubit extends Cubit<ChildrenAppStates> {
     final String formattedTime = '${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')}';
     return formattedTime;
   }
+
   void clearSelectedDate() {
     _selectedDate = null;
     _selectedTime = null;
@@ -113,6 +121,21 @@ class ChildrenAppCubit extends Cubit<ChildrenAppStates> {
     image = File(pickedImage!.path);
     emit(updateImage());
   }
+
+
+  ListTile? listTile ;
+  VoidCallback? press;
+  bool isMenu = true;
+  void isMenuClose()
+  {
+    isMenu = ! isMenu;
+    emit(isMenuClosed());
+  }
+
+
+
+
+
 
 
 

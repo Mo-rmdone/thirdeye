@@ -153,6 +153,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -198,6 +206,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -206,6 +219,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.15"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "1b61f8c4cbf965104b6ca7160880ff1af6755aad7fec70b58444245132453745"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.8.4"
   flutter_sound_lite:
     dependency: "direct main"
     description:
@@ -304,6 +325,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  icon_broken:
+    dependency: "direct main"
+    description:
+      name: icon_broken
+      sha256: db2afe175dbb683cba9dcb89a0b81804ca5b973fbe5bf974002ffb98825d4c26
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   image:
     dependency: transitive
     description:
@@ -356,10 +385,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.18.0"
   ionicons:
     dependency: "direct main"
     description:
@@ -600,6 +629,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.27.7"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -701,6 +738,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  stop_watch_timer:
+    dependency: "direct main"
+    description:
+      name: stop_watch_timer
+      sha256: eb690e4f6d983ba12ddfbf51a5d489fdba8b64982b9651cb538650888cec2886
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -729,10 +774,10 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: b2ad1c93239b094d6de1b4679c1835b1bc4332e6c6548bd2da44bd2594e6cdc5
+      sha256: "8db8f55c77f56968681447d3837c10f27a9e861e238a898fda116c7531def979"
       url: "https://pub.dev"
     source: hosted
-    version: "21.2.5"
+    version: "21.2.10"
   syncfusion_flutter_gauges:
     dependency: "direct main"
     description:
@@ -741,6 +786,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "21.2.5"
+  syncfusion_flutter_sliders:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_sliders
+      sha256: d2ca75ac264d41bce6cafa412fa6a701ea85949727c79dfa7819f12c91c13f8e
+      url: "https://pub.dev"
+    source: hosted
+    version: "21.2.10"
   synchronized:
     dependency: transitive
     description:
@@ -855,4 +908,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.0-0 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.10.0"

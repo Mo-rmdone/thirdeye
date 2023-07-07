@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thirdeye/shared/bloc_observer.dart';
-import 'package:thirdeye/shared/network/local/cashe_helper.dart';
-import 'package:thirdeye/shared/network/remote/dio_helper.dart';
-import 'package:thirdeye/shared/styles/themes/app_themes.dart';
-import 'children_layout/children_layout.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:thirdeye/presentation/shared/bloc_observer.dart';
+import 'package:thirdeye/presentation/shared/components/applocal.dart';
+import 'package:thirdeye/presentation/shared/network/local/cashe_helper.dart';
+import 'package:thirdeye/presentation/shared/network/remote/dio_helper.dart';
+import 'package:thirdeye/presentation/shared/styles/themes/app_themes.dart';
 import 'cubit/ch_cubit/ch_cubit.dart';
 import 'cubit/ch_cubit/states.dart';
-import 'login/ch_login/login_screen.dart';
-import 'login/ch_onBorading/onborading_screen.dart';
-import 'login/login_cubit/log_in_cubit.dart';
-import 'shared/components/constants.dart';
+import 'cubit/lang_cubit/locale_cubit.dart';
+import 'cubit/login_cubit/log_in_cubit.dart';
+import 'cubit/main_feature/main_feature_cubit.dart';
+import 'cubit/tracking_cubit/tracking_cubit.dart';
+import 'presentation/children_layout/children_layout.dart';
+import 'presentation/login/ch_login/login_screen.dart';
+import 'presentation/login/ch_onBorading/onborading_screen.dart';
+import 'presentation/shared/components/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,64 +28,94 @@ void main() async {
   //token = CacheHelper.getData(kay: 'token');
   Widget? widget;
 
-  if(onBoarding==true)
-
-  {
-    if(token == true)
-    {
-      widget =  ChildrenLayout();
+  if (onBoarding == true) {
+    if (token == true) {
+      widget = ChildrenLayout();
     }
-    else
-    {
+    else {
       widget = LogInScreen();
     }
   }
-  else
-  {
+  else {
     widget = onBoardingScreen();
   }
 
 
   runApp(MyApp(
-      isDark:isDark,
-      startingWidget:widget
+      isDark: isDark,
+      startingWidget: widget
   ));
 }
 
 class MyApp extends StatelessWidget {
   final bool? isDark;
   final Widget? startingWidget;
+
   MyApp({this.isDark, this.startingWidget});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:  [
-        BlocProvider(
-            create: (BuildContext context) =>
-            ChildrenAppCubit ()
-          ..changeAppMode(
-              saved: isDark,
-            ),
-        ),
+      providers: [
+        BlocProvider(create: (BuildContext context) => ChildrenAppCubit()),
+        BlocProvider(create: (BuildContext context) => LocaleCubit()..getSavedLanguage()),
         BlocProvider(create: (BuildContext context) => LogInCubit()),
+        BlocProvider(create: (BuildContext context) => MainFeatureCubit()),
+        BlocProvider(create: (BuildContext context) => TrackingCubit()..updateTeeth()),
 
       ],
-      child: BlocConsumer <ChildrenAppCubit , ChildrenAppStates>(
+      child: BlocConsumer <ChildrenAppCubit, ChildrenAppStates>(
         listener: (context, state) {
-          if (state is ChangeModeLoadingState) {}
+          if (state is ChangeModeLoadingState) {
+
+          }
           else if (state is ChangeModeLoadingState) {
 
           }
         },
         builder: (context, state) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
+          return  ScreenUtilInit(
+              designSize: const Size(360, 690),
+              minTextAdapt: true,
+              splitScreenMode: true,
+              builder: (context , child){
+                return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: lightTheme,
+                    darkTheme: darkTheme,
+                    themeMode: ChildrenAppCubit
+                        .get(context)
+                        .isDark ? ThemeMode.dark : ThemeMode.light,
+                    home: ChildrenLayout(),
+                    localizationsDelegates: [
+                      AppLocale.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    supportedLocales: [
+                      Locale("en", ""),
+                      Locale("ar", ""),
 
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              themeMode: ChildrenAppCubit.get(context).isDark? ThemeMode.dark : ThemeMode.light,
-              home:  startingWidget
+                    ],
+
+
+                    localeResolutionCallback: (currentLanguage, supportLanguage) {
+                      if (currentLanguage != null) {
+                        for (Locale locale in supportLanguage) {
+                          if (locale.languageCode ==
+                              currentLanguage.languageCode) {
+                            return currentLanguage;
+                          }
+                        }
+                      }
+                      return supportLanguage.first;
+                    }
+
+
+                );
+              }
+
+
           );
         },
 
